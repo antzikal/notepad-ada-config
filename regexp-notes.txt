@@ -1,0 +1,155 @@
+
+
+
+
+
+[Single-character matches]
+--------------------------
+	.		->	Matches any character. Even whitespace charactes.
+	\c		->
+
+
+
+
+
+
+
+[Ranges & sets of characters]
+----------------------------	
+	[...]		->	anything from the residing set, NOT all of them
+	[^...]		->	nothing from the residing set
+	[[:name:]]	->	a predifined character set
+	
+		alnum	->	ASCII letters and digits		
+		alpha	->	ASCII letters
+		blank	->	spacing which is not line terminator
+		cntrl	->	control characters
+		digit	->	decimal digits, can use single 'd' instead (without quotes)
+		graph	->	graphical character
+		lower	->	lowercase letters, can use 'l' instead
+		print	->	printable characters
+		punct	->	punctuation characters	 , " ' ? ! ; : # $ % & ( ) * + - / < > = @ [ ] \ ^ _ { } | ~
+		space	->	whitespace , can use 's' instead
+		upper	->	upper letters , can use 'u' instead
+		word	->	word character
+		xdigit	->	hexadecimal digits
+
+
+
+
+
+
+
+
+[Multiplying operators (Repeat)]
+-----------------------
+	+		->	1 or more instances of the previous CHARACTER ( greedy )
+	*		->	0 or more instances of the previous CHARACTER ( greedy )
+	?		->	one at most instance of the previous CHARACTER 
+	*?		->	zero or most of the previous GROUP ( minimally )
+	+?		->	one or more of the previous GROUP ( minimally )
+	{n}		->	matches n copies of the ELEMENT it applies to
+	{n,}		->	matches n or more copies of the ELEMENT it applies to
+	{m,n}		->	Matches m to n copies of the element it applies to, as much it can.
+	{n,}?,{m,n}?	->	Like the above, but match as few copies as they can. Compare with *? and friends
+
+
+
+
+
+
+
+
+[Anchors (Positions)]
+---------------------
+Anchors match a position in the line, rather than a particular character.
+
+
+	^		->	matches the start of a line (except when used inside a set, see above).
+	$		->	matches the end of a line.
+	\<		->	matches the start of a word using Scintilla's definitions of words.
+	\>		->	matches the end of a word using Scintilla's definition of words.
+	\b		->	Matches either the start or end of a word.
+	\B		->	Not a word boundary.
+	\A		->	The start of the matching string.
+	\'		->	The start of the matching string.
+	\z		->	the end of the matching string
+	\`		->	The end of the matching string.
+	\Z		->	Matches like \z with an optional sequence of newlines before it. 
+				This is equivalent to (?=\v*\z), which departs from the traditional Perl meaning for this escape.
+
+
+
+
+
+
+
+
+[Groups]
+	(...)		->	<Parentheses mark a subset of the regular expression. 
+				The string matched by the contents of the parentheses 
+				( ) can be re-used as a backreference or as part of a 
+				replace operation; see Substitutions, below.
+				Groups may be nested.
+	|		->	The alternation operator, which allows matching either of 
+				a number of options, like in : one|two|three to match either 
+				of "one", "two" or "three". Matches are attempted from left 
+				to right. Use (?:) to match an empty string in such a construct.
+
+
+
+
+
+
+
+
+[Readability enhacements]
+	(:...)		->	A grouping construct that doesn't count as a subexpression, 
+				just grouping things for easier reading of the regex.
+	(?#...)		->	Comments. The whole group is for humans only and will be 
+				ignored in matching text. Using the x flag modifier 
+				(see section below) is also a good way to improve readability 
+				in complex regular expressions.	
+
+
+
+
+
+
+
+
+[Search modifiers]
+------------------
+	The following constructs control how matches condition other matches, 
+	or otherwise alter the way search is performed.
+
+	\Q		->	Starts verbatim mode (Perl calls it "quoted"). In this mode, all 
+				characters are treated as-is, the only exception being the \E end 
+				verbatim mode sequence.
+	\E		->	Ends verbatim mode. Ths, "\Q\*+\Ea+" matches "\*+aaaa".
+
+	(?:flags)	->	Applies flags and not-flags to search inside the parentheses. Such a 
+				construct may have flags and may have not-flags - if it has neither, 
+				it is just a non-marking group, which is just a readability enhancer. 
+
+ 		i  	->	case insensitive (default: off)
+		m  	->	^ and $ match embedded newlines (default: as per ". matches newline")
+    		s  	->	dot matches newline (default: as per ". matches newline")
+		x  	->	Ignore unescaped whitespace in regex (default: off)
+
+
+
+
+
+
+
+
+[Control characters]
+--------------------
+	\a	bell		0x07
+	\b	backspace	0x08
+	\e	escape		0x1b	
+	\f	feed		0x0c	
+	\n	line feed	0x0a
+	\r	carriage return	0x0d	
+	\t	horizontal tab	0x09

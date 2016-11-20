@@ -1,0 +1,25 @@
+
+
+
+
+ not very general parser, does not follow 
+ the RF EBNF.
+
+
+
+<!-- ***************************************************************************************** -->
+<parser 
+	id="ada_subprog" 
+	displayName="Ada source" 
+	commentExpr="(--.*?$)">
+    
+	<function
+		mainExpr="^[\t ]*(function|procedure)[\t ]+[^\r\n]*$"
+            	displayMode="$functionName">
+        <functionName>
+            	<nameExpr expr="[_A-Za-z]?[\w_]*[\s]*\(|[_A-Za-z]?[\w_]*[\s]*\;|[_A-Za-z]?[\w_]*[\s]*return|[_A-Za-z]?[\w_]*[\s]is|[_A-Za-z]?[\w_]*[\s]*$"/>
+            <nameExpr expr="[_A-Za-z]?[\w_]*"/>
+        </functionName>
+    </function>
+</pa
+<!-- ***************************************************************************************** -->rser>
